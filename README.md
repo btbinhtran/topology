@@ -17,34 +17,22 @@ component install tower-topology
 ## Example
 
 ```js
-var project = require('tower-topology');
+var topology = require('tower-topology')
+  , node = topology.node;
+
+topology('word-count')
+  .node('signals-spout')
+  .node('word-normalizer')
+  .node('word-counter')
+    .input('word-normalizer')
+    .input('signals-spout');
+
+node('word-counter')
+  .attr('word', 'string')
+  .on('init', function(){})
+  .on('execute', function(){})
+  .on('close', function(){})
 ```
-
-## API
-
-Example API methods.
-
-### .on(event, fn, [capture])
-
-Short description of some method:
-
-```js
-project.on('event', function(e){
-
-});
-```
-
-### .on(event, selector, fn, [capture])
-
-Another description:
-
-```js
-project.on('event', 'a.remove', function(e){
-
-});
-```
-
-## Notes
 
 ## Licence
 
