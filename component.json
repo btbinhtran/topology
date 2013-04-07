@@ -1,0 +1,16 @@
+{
+  "name": "tower-topology",
+  "repo": "tower-topology",
+  "description": "Tower Topology component",
+  "version": "0.0.1",
+  "keywords": [],
+  "author": "Lance Pollard <lancejpollard@gmail.com>",
+  "dependencies": {
+    "component/emitter": "*"
+  },
+  "development": {
+    "visionmedia/mocha": "*"
+  },
+  "scripts": ["index.js"],
+  "license": "MIT"
+}
