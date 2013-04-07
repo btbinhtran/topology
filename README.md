@@ -43,6 +43,8 @@ topology('word-count').on('data', function(data){
 });
 ```
 
+Maybe the `node` is a task/job/recipe.
+
 ## Licence
 
 MIT
