@@ -29,9 +29,18 @@ topology('word-count')
 
 node('word-counter')
   .attr('word', 'string')
+  .attr('count', 'integer', 0)
   .on('init', function(){})
   .on('execute', function(){})
   .on('close', function(){})
+```
+
+Then when it's being used, you can listen for output on the topology:
+
+```js
+topology('word-count').on('data', function(data){
+  console.log(data.word, data.count);
+});
 ```
 
 ## Licence
