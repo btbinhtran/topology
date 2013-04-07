@@ -1,5 +1,9 @@
 {
   "name": "tower-topology",
   "version": "0.0.1",
-  "main": "./index.js"
+  "main": "./index.js",
+  "dependencies": {
+    "tower-stream": "*",
+    "emitter-component": "~1.0.0"
+  }
 }

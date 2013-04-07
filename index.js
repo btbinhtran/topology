@@ -3,29 +3,19 @@
  * Module dependencies.
  */
 
-var stream = require('stream')
-  , context;
+var proto = require('./lib/proto')
+  , statics = require('./lib/static')
+  , Emitter = 'undefined' == typeof window ? require('emitter-component') : require('emitter')
+
 
 /**
  * Expose `topology`.
  */
 
-var exports = module.exports = topology;
+module.exports = topology;
 
 /**
- * Expose `Topology`.
- */
-
-exports.Topology = Topology;
-
-/**
- * Expose `Node`.
- */
-
-exports.Node = Node;
-
-/**
- * A one-liner.
+ * Return a `Topology` by `name` (lazily).
  *
  * @param {String} name
  * @return {Function}
@@ -33,24 +23,53 @@ exports.Node = Node;
  */
 
 function topology(name) {
-  if (topology[name]) return topology[name];
+  if (constructors[name]) return constructors[name];
 
-  return topology[name] = new Topology;
+  /**
+   * Initialize a new `Topology`.
+   *
+   * @api public
+   */
+
+  function Topology() {
+    this.name = name;
+    this.emit('init', this);
+  }
+
+  // mixin emitter
+
+  Emitter(Topology);
+
+  // statics
+
+  Topology.className = Topology.id = name;
+
+  for (var key in statics) Topology[key] = statics[key];
+
+  // prototype
+
+  Topology.prototype = {};
+  Topology.prototype.constructor = Topology;
+  Emitter(Topology.prototype);
+  
+  for (var key in proto) Topology.prototype[key] = proto[key];
+
+  constructors[name] = Topology;
+  constructors.push(Topology);
+
+  topology.emit('define', Topology);
+
+  return Topology;
 }
 
-function Topology() {
+/**
+ * Topology classes.
+ */
 
-}
+var constructors = topology.constructors = [];
 
-Topology.node = function(){
+/**
+ * Mixin `Emitter`.
+ */
 
-}
-
-Topology.input = function(name){
-
-}
-
-function Node() {
-
-}
-
+Emitter(topology);
