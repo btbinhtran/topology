@@ -12,13 +12,13 @@ var stream = require('tower-stream')
  * Expose `topology`.
  */
 
-module.exports = topology;
+var exports = module.exports = topology;
 
 /**
  * Expose `node` (a `tower-stream` constructor).
  */
 
-module.exports.node = stream;
+exports.node = stream;
 
 /**
  * Return a `Topology` by `name` (lazily).
@@ -49,6 +49,7 @@ function topology(name) {
   // statics
 
   Topology.className = Topology.id = name;
+  Topology.nodes = [];
 
   for (var key in statics) Topology[key] = statics[key];
 
@@ -56,6 +57,7 @@ function topology(name) {
 
   Topology.prototype = {};
   Topology.prototype.constructor = Topology;
+
   Emitter(Topology.prototype);
   
   for (var key in proto) Topology.prototype[key] = proto[key];
@@ -79,3 +81,12 @@ var constructors = topology.constructors = [];
  */
 
 Emitter(topology);
+
+/**
+ * Clear `topology.constructors`.
+ */
+
+exports.clear = function(){
+  constructors.length = 0;
+  return exports;
+}
