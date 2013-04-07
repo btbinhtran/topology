@@ -3,16 +3,22 @@
  * Module dependencies.
  */
 
-var proto = require('./lib/proto')
+var stream = require('tower-stream')
+  , proto = require('./lib/proto')
   , statics = require('./lib/static')
   , Emitter = 'undefined' == typeof window ? require('emitter-component') : require('emitter')
-
 
 /**
  * Expose `topology`.
  */
 
 module.exports = topology;
+
+/**
+ * Expose `node` (a `tower-stream` constructor).
+ */
+
+module.exports.node = stream;
 
 /**
  * Return a `Topology` by `name` (lazily).
