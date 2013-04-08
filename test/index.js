@@ -31,9 +31,12 @@ describe('topology', function(){
     assert(3 === streams.length);
     
     assert('signals-spout' === streams[0].name);
-    assert('word-normalizer' === streams[1].name);
-    assert('word-counter' === streams[2].name);
+    assert('word-counter' === streams[0].outputs[0]);
 
+    assert('word-normalizer' === streams[1].name);
+    assert('word-counter' === streams[1].outputs[0]);
+
+    assert('word-counter' === streams[2].name);
     assert('word-normalizer' === streams[2].inputs[0].name);
     assert('signals-spout' === streams[2].inputs[1].name);
   });
