@@ -87,6 +87,24 @@ Emitter(topology);
  */
 
 exports.clear = function(){
+  exports.off('define');
+
+  constructors.forEach(function(emitter){
+    emitter.off('init');
+    emitter.off('data');
+    emitter.off('execute');
+    emitter.off('close');
+
+    delete constructors[emitter.id];
+  });
+
   constructors.length = 0;
+  
   return exports;
 }
+
+/**
+ * Expose `Topology`.
+ */
+
+exports.Topology = topology('default');
