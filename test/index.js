@@ -51,7 +51,19 @@ describe('topology', function(){
           , 'hello'
           , 'hello'
           , 'hello'
-          , 'world'
+        ];
+      })
+      .on('execute', function(node, data){
+        if (node.words.length)
+          node.emit('data', { word: node.words.shift() });
+        else
+          node.close();
+      });
+
+    stream('word-emitter2')
+      .on('init', function(node){
+        node.words = [
+            'world'
           , 'world'
         ];
       })
@@ -81,8 +93,10 @@ describe('topology', function(){
     // topology
     topology('word-count')
       .stream('word-emitter')
+      .stream('word-emitter2')
       .stream('word-counter')
-        .input('word-emitter');
+        .input('word-emitter')
+        .input('word-emitter2');
 
     // this will happen internally
     var count = topology('word-count').create()
