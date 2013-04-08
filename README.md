@@ -57,8 +57,8 @@ stream('word-counter')
 
 // topology
 topology('word-count')
-  .node('word-emitter')
-  .node('word-counter')
+  .stream('word-emitter')
+  .stream('word-counter')
     .input('word-emitter');
 
 // this will happen internally

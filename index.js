@@ -49,7 +49,7 @@ function topology(name) {
   // statics
 
   Topology.className = Topology.id = name;
-  Topology.nodes = [];
+  Topology.streams = [];
 
   for (var key in statics) Topology[key] = statics[key];
 

@@ -18,24 +18,24 @@ describe('topology', function(){
     topology('word-count');
   });
 
-  it('should define nodes and inputs', function(){
+  it('should define streams and inputs', function(){
     topology('word-count')
-      .node('signals-spout')
-      .node('word-normalizer')
-      .node('word-counter')
+      .stream('signals-spout')
+      .stream('word-normalizer')
+      .stream('word-counter')
         .input('word-normalizer')
         .input('signals-spout');
 
-    var nodes = topology('word-count').nodes;
+    var streams = topology('word-count').streams;
 
-    assert(3 === nodes.length);
+    assert(3 === streams.length);
     
-    assert('signals-spout' === nodes[0].name);
-    assert('word-normalizer' === nodes[1].name);
-    assert('word-counter' === nodes[2].name);
+    assert('signals-spout' === streams[0].name);
+    assert('word-normalizer' === streams[1].name);
+    assert('word-counter' === streams[2].name);
 
-    assert('word-normalizer' === nodes[2].inputs[0].name);
-    assert('signals-spout' === nodes[2].inputs[1].name);
+    assert('word-normalizer' === streams[2].inputs[0].name);
+    assert('signals-spout' === streams[2].inputs[1].name);
   });
 
   it('should execute', function(done){
@@ -77,8 +77,8 @@ describe('topology', function(){
 
     // topology
     topology('word-count')
-      .node('word-emitter')
-      .node('word-counter')
+      .stream('word-emitter')
+      .stream('word-counter')
         .input('word-emitter');
 
     // this will happen internally
