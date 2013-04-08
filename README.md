@@ -45,7 +45,7 @@ stream('word-counter')
     node.words = {};
   })
   .on('execute', function(node, data){
-    node.words[data.word] == null
+    null == node.words[data.word]
       ? (node.words[data.word] = 1)
       : (++node.words[data.word]);
 
@@ -84,8 +84,6 @@ count
     assert(2 === counts[6].count);
   }).execute();
 ```
-
-Maybe the `node` is a task/job/recipe.
 
 ## Licence
 
