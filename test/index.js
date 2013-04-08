@@ -49,30 +49,20 @@ describe('topology', function(){
             'hello'
           , 'hello'
           , 'hello'
-          , 'hello'
-          , 'hello'
         ];
       })
-      .on('execute', function(node, data){
-        if (node.words.length)
-          node.emit('data', { word: node.words.shift() });
-        else
-          node.close();
-      });
+      .on('execute', emitWord);
 
     stream('word-emitter2')
       .on('init', function(node){
         node.words = [
-            'world'
+            'hello'
+          , 'hello'
+          , 'world'
           , 'world'
         ];
       })
-      .on('execute', function(node, data){
-        if (node.words.length)
-          node.emit('data', { word: node.words.shift() });
-        else
-          node.close();
-      });
+      .on('execute', emitWord);
 
     // b
     stream('word-counter')
@@ -89,6 +79,13 @@ describe('topology', function(){
           , count: node.words[data.word]
         });
       });
+
+    function emitWord(node, data) {
+      if (node.words.length)
+        node.emit('data', { word: node.words.shift() });
+      else
+        node.close();
+    }
 
     // topology
     topology('word-count')
