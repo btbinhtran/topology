@@ -66,8 +66,8 @@ describe('topology', function(){
       })
       .on('execute', function(node, data){
         null == node.words[data.word]
-          ? (node.words[data.word] = 1)
-          : (++node.words[data.word]);
+          ? node.words[data.word] = 1
+          : ++node.words[data.word];
 
         node.emit('data', {
             word: data.word
