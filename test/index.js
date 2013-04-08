@@ -69,7 +69,7 @@ describe('topology', function(){
       .on('init', function(node){
         node.words = {};
       })
-      .on('execute', function(node, data){
+      .on('execute', function(node, data, fn){
         null == node.words[data.word]
           ? node.words[data.word] = 1
           : ++node.words[data.word];
@@ -78,13 +78,17 @@ describe('topology', function(){
             word: data.word
           , count: node.words[data.word]
         });
+
+        fn();
       });
 
-    function emitWord(node, data) {
+    function emitWord(node, data, fn) {
       if (node.words.length)
         node.emit('data', { word: node.words.shift() });
       else
         node.close();
+
+      fn();
     }
 
     // topology
