@@ -70,16 +70,18 @@ describe('topology', function(){
         node.words = {};
       })
       .on('execute', function(node, data, fn){
-        null == node.words[data.word]
-          ? node.words[data.word] = 1
-          : ++node.words[data.word];
+        setTimeout(function(){
+          null == node.words[data.word]
+            ? node.words[data.word] = 1
+            : (node.words[data.word] += 1);
 
-        node.emit('data', {
-            word: data.word
-          , count: node.words[data.word]
-        });
+          node.emit('data', {
+              word: data.word
+            , count: node.words[data.word]
+          });
 
-        fn();
+          fn();
+        }, 10);
       });
 
     function emitWord(node, data, fn) {
