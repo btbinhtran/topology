@@ -39,6 +39,12 @@ function topology(name) {
 
   function Topology() {
     this.name = name;
+    this.streams = [];
+
+    Topology.streams.forEach(function(_stream){
+      this.stream(_stream.name, _stream);
+    }, this);
+
     this.emit('init', this);
   }
 
