@@ -51,7 +51,7 @@ describe('topology', function(){
           , 'hello'
         ];
       })
-      .on('execute', emitWord);
+      .on('exec', emitWord);
 
     stream('word-emitter2')
       .on('init', function(node){
@@ -62,14 +62,14 @@ describe('topology', function(){
           , 'world'
         ];
       })
-      .on('execute', emitWord);
+      .on('exec', emitWord);
 
     // b
     stream('word-counter')
       .on('init', function(node){
         node.words = {};
       })
-      .on('execute', function(node, data, fn){
+      .on('exec', function(node, data, fn){
         setTimeout(function(){
           null == node.words[data.word]
             ? node.words[data.word] = 1
@@ -124,6 +124,6 @@ describe('topology', function(){
         assert(2 === counts[6].count);
 
         done();
-      }).execute();
+      }).exec();
   });
 });

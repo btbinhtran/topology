@@ -48,10 +48,6 @@ function topology(name) {
     this.emit('init', this);
   }
 
-  // mixin emitter
-
-  Emitter(Topology);
-
   // statics
 
   Topology.className = Topology.id = name;
@@ -63,14 +59,11 @@ function topology(name) {
 
   Topology.prototype = {};
   Topology.prototype.constructor = Topology;
-
-  Emitter(Topology.prototype);
   
   for (var key in proto) Topology.prototype[key] = proto[key];
 
   constructors[name] = Topology;
   constructors.push(Topology);
-
   topology.emit('define', Topology);
 
   return Topology;
@@ -87,6 +80,8 @@ var constructors = topology.constructors = [];
  */
 
 Emitter(topology);
+Emitter(statics);
+Emitter(proto);
 
 /**
  * Clear `topology.constructors`.
@@ -98,7 +93,7 @@ exports.clear = function(){
   constructors.forEach(function(emitter){
     emitter.off('init');
     emitter.off('data');
-    emitter.off('execute');
+    emitter.off('exec');
     emitter.off('close');
 
     delete constructors[emitter.id];
