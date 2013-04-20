@@ -12,13 +12,13 @@ var stream = require('tower-stream')
  * Expose `topology`.
  */
 
-var exports = module.exports = topology;
+exports = module.exports = topology;
 
 /**
- * Expose `node` (a `tower-stream` constructor).
+ * Expose `stream` (a `tower-stream` constructor).
  */
 
-exports.node = stream;
+exports.stream = stream;
 
 /**
  * Return a `Topology` by `name` (lazily).
@@ -29,7 +29,7 @@ exports.node = stream;
  */
 
 function topology(name) {
-  if (constructors[name]) return constructors[name];
+  if (lookup[name]) return lookup[name];
 
   /**
    * Initialize a new `Topology`.
@@ -62,7 +62,7 @@ function topology(name) {
   
   for (var key in proto) Topology.prototype[key] = proto[key];
 
-  constructors[name] = Topology;
+  lookup[name] = Topology;
   constructors.push(Topology);
   topology.emit('define', Topology);
 
@@ -73,7 +73,8 @@ function topology(name) {
  * Topology classes.
  */
 
-var constructors = topology.constructors = [];
+var constructors = topology.constructors = []
+  , lookup = {};
 
 /**
  * Mixin `Emitter`.
@@ -96,7 +97,7 @@ exports.clear = function(){
     emitter.off('exec');
     emitter.off('close');
 
-    delete constructors[emitter.id];
+    delete lookup[emitter.id];
   });
 
   constructors.length = 0;
