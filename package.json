@@ -4,7 +4,7 @@
   "main": "./index.js",
   "dependencies": {
     "tower-stream": "*",
-    "emitter-component": "~1.0.0",
+    "tower-emitter": "*",
     "part-async-series": "*"
   }
 }

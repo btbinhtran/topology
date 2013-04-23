@@ -1,16 +1,21 @@
 {
   "name": "tower-topology",
-  "repo": "tower-topology",
+  "repo": "tower/topology",
   "description": "Tower Topology component",
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    "tower-stream": "*",
-    "component/emitter": "*"
+    "tower/stream": "*",
+    "tower/emitter": "*"
   },
   "development": {
     "visionmedia/mocha": "*"
   },
-  "scripts": ["index.js"],
+  "scripts": [
+    "index.js",
+    "lib/static.js",
+    "lib/proto.js"
+  ],
+  "main": "index.js",
   "license": "MIT"
 }

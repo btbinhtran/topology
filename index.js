@@ -6,7 +6,7 @@
 var stream = require('tower-stream')
   , proto = require('./lib/proto')
   , statics = require('./lib/static')
-  , Emitter = 'undefined' == typeof window ? require('emitter-component') : require('emitter')
+  , Emitter = require('tower-emitter');
 
 /**
  * Expose `topology`.
@@ -49,6 +49,9 @@ function topology(name) {
   }
 
   // statics
+  Topology.toString = function toString(){
+    return 'topology("' + name + '")';
+  }
 
   Topology.className = Topology.id = name;
   Topology.streams = [];
