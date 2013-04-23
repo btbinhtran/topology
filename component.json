@@ -6,7 +6,8 @@
   "keywords": [],
   "dependencies": {
     "tower/stream": "*",
-    "tower/emitter": "*"
+    "tower/emitter": "*",
+    "part/async-series": "*"
   },
   "development": {
     "visionmedia/mocha": "*"
